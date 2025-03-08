@@ -1,0 +1,990 @@
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Set the minimum height of the body to 100% of the viewport height */
+  margin: 0;
+}
+
+/* Styles for SignupComponent */
+.SignupComponent-form {
+    background-color: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    max-width: 700px;
+    overflow: hidden; /* Prevents the container from expanding */
+}
+
+.SignupComponent-logo {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.SignupComponent-form-scroll {
+    max-height: 250px; /* Adjust this value to control when scrolling starts */
+    overflow-y: auto;  /* Enables vertical scrolling */
+}
+
+.SignupComponent-title {
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.SignupComponent-label {
+    font-weight: 500;
+}
+
+.SignupComponent-btn-primary {
+    background-color: #6a0dad;
+    border-color: #6a0dad;
+}
+
+.SignupComponent-image-container {
+    border-radius: 10px;
+    max-width: 600px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%; /* Ensure it takes the height of the container */
+    overflow: hidden; /* To handle any overflow */
+}
+
+.SignupComponent-img-fluid {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; /* Ensure the image adjusts to its container while keeping the aspect ratio */
+    border-radius: 10px; /* This keeps the border-radius effect on the image itself */
+}
+
+.SignupComponent-text-primary {
+    color: #6a0dad !important;
+}
+
+.SignupComponent-text-primary:hover {
+    color: #550c9c !important;
+}
+
+
+
+
+
+/* Styles for SignupComponent(Admin also) */
+.SigninComponent-login-container {
+    max-width: 700px;
+    margin: 50px auto;
+}
+
+.SigninComponent-login-logo {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.SigninComponent-login-box {
+    padding: 20px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    background-color: #fff;
+}
+
+h2 {
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.SigninComponent-image-container {
+    border-radius: 10px;
+    max-width: 600px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%; /* Ensure it takes the height of the container */
+    overflow: hidden; /* To handle any overflow */
+}
+
+.SigninComponent-img-fluid {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; /* Ensure the image adjusts to its container while keeping the aspect ratio */
+    border-radius: 10px; /* This keeps the border-radius effect on the image itself */
+}
+
+.SigninComponent-btn-primary {
+    background-color: #6a0dad;
+    border-color: #6a0dad;
+}
+
+.SigninComponent-google {
+    text-decoration: none;
+}
+
+
+
+
+/* Styles for HomeComponent */
+/* For Corousal functionality */
+.slick-prev,
+.slick-next {
+  width: 1.50vw !important;
+  height: 1.50vw !important;
+  color: white !important;
+  background-color: black !important;
+  border-radius: 0.25vw !important;
+  z-index: 1 !important;
+}
+
+.slick-prev:hover {
+  background-color: white;
+  color: black;
+}
+
+.slick-next:hover {
+  background-color: white;
+  color: black;
+}
+
+.slick-dots {
+  bottom: -25px;
+  text-align: center;
+}
+
+.slick-dots li button:before {
+  font-size: 12px;
+  color: black;
+}
+
+.slick-dots li.slick-active button:before {
+  color: black;
+}
+
+
+/* For carousals and cards */
+/* .HomeComponent-card-container {
+  display: flex;
+  flex-wrap: wrap;
+  scrollbar-width: thin;
+  scrollbar-color: transparent;
+}
+
+.HomeComponent-card {
+  width: 20vw;
+  height: 20vw;
+  margin: 2vw;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease-in-out;
+}
+
+.HomeComponent-card:hover {
+  transform: scale(1.1);
+}
+
+.HomeComponent-card img {
+  transition: transform 0.3s ease-in-out;
+}
+
+.HomeComponent-card:hover img {
+  transform: scale(1.0);
+}
+
+.HomeComponent-card-container::-webkit-scrollbar {
+  width: 12px;
+}
+
+.HomeComponent-card-container::-webkit-scrollbar-thumb {
+  background-color: transparent;
+} */
+
+/* .HomeComponent-like-button {
+  position: absolute;
+  top: 10%;
+  left: 15%;
+  transform: translate(-50%, -50%);
+  background-color: crimson;
+  height: 2.5vw;
+  width: 2.5vw;
+  border-radius: 50%;
+  border: none;
+} */
+
+/* .HomeComponent-play-button {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: crimson;
+  height: 2.5vw;
+  width: 2.5vw;
+  border-radius: 50%;
+  border: none;
+} */
+
+/* .HomeComponent-card_img-content {
+  position: relative;
+  flex-grow: 1;
+}
+
+.HomeComponent-card-content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.HomeComponent-card-img-top {
+  width: 90%;
+  height: 90%;
+  object-fit: cover;
+}
+
+.HomeComponent-card-body {
+  padding: 2vw;
+}
+
+.HomeComponent-card-text {
+  font-size: 1.0vw;
+} */
+
+
+/* For carousals and cards */
+.HomeComponent-card-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2vw;
+  justify-content: center;
+  gap: 2vw;
+}
+
+.HomeComponent-card {
+  width: 18vw;
+  height: 20vw;
+  margin: 2vw;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+}
+
+.HomeComponent-card:hover {
+  transform: scale(1.05);
+}
+
+.HomeComponent-card_img-content {
+  width: 100%;
+  height: 10vw; /* Fixed height for consistency */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.HomeComponent-card-img-top {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.3s ease-in-out;
+}
+
+.HomeComponent-card:hover .HomeComponent-card-img-top {
+  transform: scale(1.05);
+}
+
+.HomeComponent-card-content {
+  padding: 1vw;
+  width: 100%;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.HomeComponent-card-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.HomeComponent-card-text {
+  font-size: 1vw;
+  margin: 0.5vw 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 90%;
+}
+
+/*For HomeComponent-Modals*/
+.HomeComponent-modal {
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index:1;
+  }
+
+  .HomeComponent-modal-content {
+      background-color: #fff;
+      margin: 10% auto;
+      padding: 20px;
+      border: 1px solid #888;
+  }
+
+  .HomeComponent-close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+  }
+
+
+
+
+  /* Styles for NavbarComponent(Admin also) */
+  .navbar-brand i {
+    color: #ffffff;
+  }
+  .navbar-nav .active {
+    font-weight: bold;
+  }
+  .navbar-nav a {
+    color: #ffffff !important;
+  }
+  .navbar-nav a:hover {
+    color: #ddd !important;
+  }
+  .navbar-nav .dropdown-menu {
+    background-color: #17a2b8;
+  }
+  .navbar-nav .dropdown-item {
+    color: #ffffff;
+  }
+  .navbar-nav .dropdown-item:hover {
+    background-color: #138496;
+  }
+
+
+
+
+  /* Styles for Redirect component(Admin also) */
+  .status-container {
+    text-align: center;
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.8s ease-in-out;
+}
+
+.icon {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    animation: pop 0.5s ease-in-out;
+}
+
+.success {
+    color: green;
+}
+
+.failure {
+    color: red;
+}
+
+
+
+/* Styles for Profile Component */
+.ProfileComponent-profile-header {
+  background: linear-gradient(to right, #d3cce3, #e9e4f0);
+  padding: 30px;
+  text-align: center;
+}
+.ProfileComponent-profile-header h1 {
+  font-size: 2rem;
+}
+.ProfileComponent-profile-header p {
+  font-size: 1.2rem;
+  color: #555;
+}
+
+
+.ProfileComponent-container{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: flex-start; /* Aligns items at the top */
+  text-align: center;
+  width: 100%;
+}
+
+
+.ProfileComponent-image{
+position: relative;
+flex-grow: 1;
+}
+
+.ProfileComponent-card-content {
+flex-grow: 1;
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+}
+
+.ProfileComponent-card-img-top {
+width: 90%;
+height: 90%;
+object-fit: cover;
+}
+
+
+.ProfileComponent-card-body {
+padding: 1vw; /* Adjust padding relative to the card size */
+}
+
+.ProfileComponent-card-text {
+font-size: 1.2vw; /* Adjust font size relative to the card size */
+}
+
+
+.ProfileComponent-card {
+width: 20vw; 
+height: 20vw; 
+margin: 2vw; 
+position: relative;
+/* flex: 0 0 auto; */
+background-color: #fff;
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+display:flex;
+flex-direction: column;
+transition: transform 0.3s ease-in-out;
+}
+
+
+.ProfileComponent-card:hover {
+  transform: scale(1.1);
+}
+
+.ProfileComponent-card img {
+transition: transform 0.3s ease-in-out;
+}
+
+@media screen and (max-width: 768px) {
+  .ProfileComponent-card {
+      width: calc(50% - 20px);
+  }
+}
+
+
+@media screen and (max-width: 576px) {
+  .ProfileComponent-card {
+      width: calc(100% - 20px);
+  }
+}
+
+/*For ProfileComponent-Modals*/
+.ProfileComponent-modal {
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index:1;
+}
+
+.ProfileComponent-modal-content {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+}
+
+.ProfileComponent-close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+
+
+
+
+
+
+/* Styles for ProfRegistrationComponent */
+.ProfRegistrationComponent-form {
+  background-color: white;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  max-width: 700px;
+  overflow: hidden; /* Prevents the container from expanding */
+}
+
+.ProfRegistrationComponent-logo {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.ProfRegistrationComponent-form-scroll {
+  max-height: 250px; /* Adjust this value to control when scrolling starts */
+  overflow-y: auto;  /* Enables vertical scrolling */
+}
+
+.ProfRegistrationComponent-title {
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.ProfRegistrationComponent-label {
+  font-weight: 500;
+}
+
+.ProfRegistrationComponent-btn-primary {
+  background-color: #6a0dad;
+  border-color: #6a0dad;
+}
+
+.ProfRegistrationComponent-image-container {
+  border-radius: 10px;
+  max-width: 600px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%; /* Ensure it takes the height of the container */
+  overflow: hidden; /* To handle any overflow */
+}
+
+.ProfRegistrationComponent-img-fluid {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain; /* Ensure the image adjusts to its container while keeping the aspect ratio */
+  border-radius: 10px; /* This keeps the border-radius effect on the image itself */
+}
+
+.ProfRegistrationComponent-text-primary {
+  color: #6a0dad !important;
+}
+
+.ProfRegistrationComponent-text-primary:hover {
+  color: #550c9c !important;
+}
+
+
+
+
+
+
+
+/* Styles for SignOutComponent(Admin also) */
+.SignOutComponent-message {
+  text-align: center;
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+
+
+
+/* Styles for ProfSrvcsHistory Component */
+.ProfSrvcsHistoryComponent-container{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: flex-start; /* Aligns items at the top */
+  text-align: center;
+  width: 100%;
+}
+
+
+.ProfSrvcsHistoryComponent-image{
+position: relative;
+flex-grow: 1;
+}
+
+.ProfSrvcsHistoryComponent-card-content {
+flex-grow: 1;
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+}
+
+.ProfSrvcsHistoryComponent-card-img-top {
+width: 90%;
+height: 90%;
+object-fit: cover;
+}
+
+
+.ProfSrvcsHistoryComponent-card-body {
+padding: 1vw; /* Adjust padding relative to the card size */
+}
+
+.ProfSrvcsHistoryComponent-card-text {
+font-size: 1.2vw; /* Adjust font size relative to the card size */
+}
+
+
+.ProfSrvcsHistoryComponent-card {
+width: 20vw; 
+height: 20vw; 
+margin: 2vw; 
+position: relative;
+/* flex: 0 0 auto; */
+background-color: #fff;
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+display:flex;
+flex-direction: column;
+transition: transform 0.3s ease-in-out;
+}
+
+
+.ProfSrvcsHistoryComponent-card:hover {
+  transform: scale(1.1);
+}
+
+.ProfSrvcsHistoryComponent-card img {
+transition: transform 0.3s ease-in-out;
+}
+
+@media screen and (max-width: 768px) {
+  .ProfSrvcsHistoryComponent-card {
+      width: calc(50% - 20px);
+  }
+}
+
+
+
+@media screen and (max-width: 576px) {
+  .ProfSrvcsHistoryComponent-card {
+      width: calc(100% - 20px);
+  }
+}
+
+
+/*For ProfSrvcsHistoryComponent-Modals*/
+.ProfSrvcsHistoryComponent-modal {
+  display: none;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index:1;
+}
+
+.ProfSrvcsHistoryComponent-modal-content {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+}
+
+.ProfSrvcsHistoryComponent-close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+
+
+
+
+
+
+
+/* Styles for ProfSrvcReqsComponent Component */
+.ProfSrvcReqsComponent-container{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: flex-start; /* Aligns items at the top */
+  text-align: center;
+  width: 100%;
+}
+
+.ProfSrvcReqsComponent-image{
+position: relative;
+flex-grow: 1;
+}
+
+.ProfSrvcReqsComponent-card-content {
+flex-grow: 1;
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+}
+
+.ProfSrvcReqsComponent-card-img-top {
+width: 90%;
+height: 90%;
+object-fit: cover;
+}
+
+
+.ProfSrvcReqsComponent-card-body {
+padding: 1vw; /* Adjust padding relative to the card size */
+}
+
+.ProfSrvcReqsComponent-card-text {
+font-size: 1.2vw; /* Adjust font size relative to the card size */
+}
+
+
+.ProfSrvcReqsComponent-card {
+width: 20vw; 
+height: 20vw; 
+margin: 2vw; 
+position: relative;
+/* flex: 0 0 auto; */
+background-color: #fff;
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+display:flex;
+flex-direction: column;
+transition: transform 0.3s ease-in-out;
+}
+
+
+.ProfSrvcReqsComponent-card:hover {
+  transform: scale(1.1);
+}
+
+.ProfSrvcReqsComponent-card img {
+transition: transform 0.3s ease-in-out;
+}
+
+@media screen and (max-width: 768px) {
+  .ProfSrvcReqsComponent-card {
+      width: calc(50% - 20px);
+  }
+}
+
+
+
+@media screen and (max-width: 576px) {
+  .ProfSrvcReqsComponent-card {
+      width: calc(100% - 20px);
+  }
+}
+
+/* For Modal */
+.ProfSrvcReqsComponent-modal {
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index:1;
+}
+
+.ProfSrvcReqsComponent-modal-content {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+}
+
+.ProfSrvcReqsComponent-close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+
+
+
+/* Notification container styling */
+#notification-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 10px;
+  max-width: 300px;
+}
+
+
+
+
+
+
+/* Styles for Admin Home */
+.AdminHomeComponent-fullpage {
+  flex:1;
+}
+
+.AdminHomeComponent-dataholder {
+  width: 2.5in;
+  height: 2.5in;
+  margin: .5in;
+  background-color: white;
+  text-align: center; 
+  line-height: 2in;
+  border-radius: 20px; /* Center the text vertically by setting line-height equal to the container height */
+}
+
+
+
+
+/* Styles for Admin Details */
+#AdminDetails-fullpage{
+  flex: 1; /* Allow the main content to grow and take up remaining vertical space */
+}
+
+
+
+
+
+
+/* Styles for AdminSrvcCatRegComponent */
+.AdminSrvcCatRegComponent-form {
+  background-color: white;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  max-width: 700px;
+  overflow: hidden; /* Prevents the container from expanding */
+}
+
+.AdminSrvcCatRegComponent-logo {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.AdminSrvcCatRegComponent-form-scroll {
+  max-height: 250px; /* Adjust this value to control when scrolling starts */
+  overflow-y: auto;  /* Enables vertical scrolling */
+}
+
+.AdminSrvcCatRegComponent-title {
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.AdminSrvcCatRegComponent-label {
+  font-weight: 500;
+}
+
+.AdminSrvcCatRegComponent-btn-primary {
+  background-color: #6a0dad;
+  border-color: #6a0dad;
+}
+
+.AdminSrvcCatRegComponent-image-container {
+  border-radius: 10px;
+  max-width: 600px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%; /* Ensure it takes the height of the container */
+  overflow: hidden; /* To handle any overflow */
+}
+
+.AdminSrvcCatRegComponent-img-fluid {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain; /* Ensure the image adjusts to its container while keeping the aspect ratio */
+  border-radius: 10px; /* This keeps the border-radius effect on the image itself */
+}
+
+.AdminSrvcCatRegComponent-text-primary {
+  color: #6a0dad !important;
+}
+
+.AdminSrvcCatRegComponent-text-primary:hover {
+  color: #550c9c !important;
+}
+
+
+
+
+
+/* Styles for AdminApprovalsComponent Component */
+/* style="display: flex; flex-direction: column; align-items: center;text-align: center; */
+.AdminApprovalsComponent-container{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: flex-start; /* Aligns items at the top */
+  text-align: center;
+  width: 100%;
+}
+
+
+
+.AdminApprovalsComponent-card-content {
+flex-grow: 1;
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+}
+
+
+
+.AdminApprovalsComponent-card-body {
+padding: 1vw; /* Adjust padding relative to the card size */
+}
+
+.AdminApprovalsComponent-card-text {
+font-size: 1.2vw; /* Adjust font size relative to the card size */
+}
+
+
+.AdminApprovalsComponent-card {
+width: 20vw; 
+height: 20vw; 
+margin: 2vw; 
+position: relative;
+/* flex: 0 0 auto; */
+background-color: #fff;
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+display:flex;
+flex-direction: column;
+transition: transform 0.3s ease-in-out;
+}
+
+
+.AdminApprovalsComponent-card:hover {
+  transform: scale(1.1);
+}
+
+.AdminApprovalsComponent-card img {
+transition: transform 0.3s ease-in-out;
+}
+
+@media screen and (max-width: 768px) {
+  .AdminApprovalsComponent-card {
+      width: calc(50% - 20px);
+  }
+}
+
+
+
+@media screen and (max-width: 576px) {
+  .AdminApprovalsComponent-card {
+      width: calc(100% - 20px);
+  }
+}
+
+/*For AdminApprovalsComponent-Modals*/
+.AdminApprovalsComponent-modal {
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index:1;
+}
+
+.AdminApprovalsComponent-modal-content {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+}
+
+.AdminApprovalsComponent-close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+
+

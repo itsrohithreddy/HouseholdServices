@@ -1,0 +1,7 @@
+/backend/myvenv
+/backend/.env
+ImportantNotes.txt
+/backend/celerybeat*
+/backend/db_directory
+/frontend1
+supervisord.conf
