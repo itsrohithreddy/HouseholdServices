@@ -3,7 +3,7 @@ const ProfSrvcsHistory = Vue.component("ProfSrvcsHistoryComponent",{
     <div>
     <!-- Completed/Rejected Service Requests -->
     <div>
-    <h3>Completed/Rejected Orders</h3>
+    <h3>Completed/Rejected Requests</h3>
     <div v-if="serviceRequests.length" class="container ProfSrvcsHistoryComponent-container">
         <!-- Iterate over the service requests array -->
         <div v-for="srvcreq in serviceRequests" :key="srvcreq.srvcreq_id" class="ProfSrvcsHistoryComponent-card card my-3">

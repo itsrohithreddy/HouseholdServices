@@ -25,7 +25,7 @@ const Home = Vue.component("HomeComponent", {
   
         if (data.status === "success" && data.flag === 1) {
           this.categorizedServices = data.data;
-          console.log("All services fetched successfully:");
+          console.log("All services fetched successfully:",this.categorizedServices);
           localStorage.setItem("search_items", JSON.stringify(data.data));
   
           // Ensure the DOM is updated before initializing the carousel
@@ -45,6 +45,7 @@ const Home = Vue.component("HomeComponent", {
       const cardCount = $(".HomeComponent-card-container .HomeComponent-card").length;
       $(".HomeComponent-card-container").slick({
         slidesToShow: cardCount <= 3 ? cardCount : 4, // Dynamically adjust slidesToShow
+        // slidesToShow: 4,
         slidesToScroll: 1,
         autoplay: true,
         autoplaySpeed: 3500,
@@ -52,6 +53,8 @@ const Home = Vue.component("HomeComponent", {
         dots: true,
         centerMode: cardCount <= 3, // Enable centerMode when <= 3 cards
         // centerPadding: cardCount <= 3 ? "10%" : "0", // Add padding to better center the cards
+        infinite: cardCount > 4, // Disable infinite loop if only 1 slide
+        // variableWidth: false, // Force slides to take equal width
         prevArrow: '<button class="slick-prev"><i class="bi bi-arrow-left"></i></button>',
         nextArrow: '<button class="slick-next"><i class="bi bi-arrow-right"></i></button>',
       });
@@ -157,7 +160,7 @@ const Home = Vue.component("HomeComponent", {
 
               <div v-for="service in services" :key="service.service_name" class="HomeComponent-card card">
                 <div class="container HomeComponent-card_img-content card_img-content">
-                  <img :src="service.service_image" :alt="service.serevice_name + ' Image'" class="HomeComponent-card-img-top card-img-top"/>
+                  <img :src="service.service_image" :alt="service.service_name + ' Image'" class="HomeComponent-card-img-top card-img-top"/>
                 </div>
                 <div class="HomeComponent-card-content card-content">
                   <div class="HomeComponent-card-body card-body">

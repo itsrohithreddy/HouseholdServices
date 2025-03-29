@@ -214,25 +214,32 @@ const Signup = Vue.component("SignupComponent" ,{
             if(this.checkSignupFrom()){
                 try {
                     // Get CSRF token from the meta tag in the head of index.html
-                    // const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-                    const response = await fetch('/api/signup', {
-                        method: 'POST',
-                        headers: {
-                          "Content-Type": "application/json",
-                        },
-                        body: JSON.stringify(this.formData),
+                    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                    // const response = await fetch('/api/signup', {
+                    //     method: 'POST',
+                    //     headers: {
+                    //       "Content-Type": "application/json",
+                    //     },
+                    //     body: JSON.stringify(this.formData),
+                    // });
+                    const response = await axios.post(`/api/signup`, this.formData,{
+                      headers: {
+                      "Content-Type": "application/json",
+                      'X-CSRF-Token': csrfToken
+                      },
                     });
-                
-                    if (response.ok) {
-                        const data = await response.json();
+                  // console.log(this.formData)
+                    const data = response.data
+                    
+                    if (data.status === "success" && data.flag === 1) {
                         // this.$router.push('/signin');
                         const message = "User Registered Successfully. Redirecting to Home page in 3secs. Thank you."
                         const status = "true"
                         this.$router.push(`/redirect/${message}/${status}`);
                     }
-                    else {
-                        const errorData = await response.json();
-                        console.error('Hi HI...Login failed:', errorData);
+                    if (response.status != 200) {
+                        // const errorData = await response.json();
+                        console.error('Hi HI...Login failed:', data.message);
                         const message = "User Registered failed. Redirecting to Home page in 3secs. Please try again. Thank you."
                         const status = "false"
                         this.$router.push(`/redirect/${message}/${status}`);

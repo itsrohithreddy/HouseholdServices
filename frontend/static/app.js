@@ -7,9 +7,9 @@ import Redirect from "./components/redirect.js";
 import Profile from "./components/profile.js";
 import ProfRegistration from "./components/profRegistration.js";
 import SignOut from "./components/signout.js";
-// import Notification from "./components/notification.js";
 import ProfSrvcReqs from "./components/profSrvcReqs.js"
 import ProfSrvcsHistory from "./components/profSrvcsHistory.js";
+import Srch from "./components/searchServices.js"
 
 // Use Vuex and VueRouter
 Vue.use(Vuex);
@@ -54,7 +54,8 @@ const routes = [
     { path : "/profregister", component : ProfRegistration},
     { path : "/signout",component : SignOut},
     {path : "/prof_pendReqs", component : ProfSrvcReqs},
-    {path : "/prof_srvcs", component : ProfSrvcsHistory}
+    {path : "/prof_srvcs", component : ProfSrvcsHistory},
+    {path : "/srch",componenet : Srch}
 ];
   
 const router = new VueRouter({

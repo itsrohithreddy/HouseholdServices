@@ -81,40 +81,6 @@ class ServiceAPI(Resource):
 
 
 
-    # @check_role_admin
-    # @check_loggedIn_status
-    # @csrf_protect
-    # @check_loggedIn_jwt_expiration
-    # def delete(self):
-    #     """
-    #     Deletes a service by service_name param in request.(By admin only)
-    #     """
-    #     # http://localhost:5000/api/services?service_name=Plumbing
-    #     service_name = request.agrs.get("service_name")
-    #     response = None
-    #     if not service_name:
-    #         response = make_response(jsonify({"message":"Service name is missing!!","flag":0,"status":"failure"}),400)
-    #         response.headers['Content-Type'] = 'application/json'
-    #         return response
-
-    #     service = Services.query.filter_by(service_name=service_name).first()
-    #     if not service:
-    #         response = make_response(jsonify({"message":f"Service with name '{service_name}' is not found!!","flag":0,"status":"failure"}),404)
-    #         response.headers['Content-Type'] = 'application/json'
-    #         return response
-    #     try:
-    #         db.session.delete(service)
-    #         db.session.commit()
-    #         response = make_response(jsonify({'message': f"Service with name '{service_name}' deleted successfully.",'flag':1,"status":"success"}),200)
-    #     except Exception as e:
-    #         print("Rolling back. Issue with database Insertion",e)
-    #         db.session.rollback()
-    #         response = make_response(jsonify({"message":"Service deletion failed. Database error. Please try again.",'flag':0,"status":"failure"}),503)
-    #     response.headers['Content-Type'] = 'application/json'
-    #     return response
-
-
-
 
     @check_loggedIn_jwt_expiration_admin
     @check_loggedIn_status

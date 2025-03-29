@@ -26,7 +26,7 @@ const ProfSrvcReqs = Vue.component("ProfSrvcReqsComponent",{
       </div>
       </div>
       <div v-else style="display: flex; flex-direction: column; align-items: center;text-align: center;">
-          <p><span style="color:green">No Pending Requests </span></p>
+          <p><span style="color:green">No Pending Requests</span></p>
       </div>
 
 

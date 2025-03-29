@@ -1,6 +1,6 @@
-const Search = Vue.component("SearchComponent",{
+const Srch = Vue.component("SearchComponent",{
     template: `
-    <div class="search-container">
+    <div class="SearchComponent-search-container">
         <div class="container mt-4">
             <h2 class="text-center">Search Services</h2>
             <div class="card p-4">
@@ -10,7 +10,7 @@ const Search = Vue.component("SearchComponent",{
                             <label for="category" class="form-label">Category</label>
                             <select v-model="filters.category" class="form-select">
                                 <option value="">Select Category</option>
-                                <option v-for="cat in categories" :key="cat" :value="cat">{{ cat }}</option>
+                                <option v-for="cat in service_categories" :key="cat" :value="cat">{{ cat }}</option>
                             </select>
                         </div>
                         <div class="col-md-4">
@@ -23,7 +23,7 @@ const Search = Vue.component("SearchComponent",{
                         </div>
                     </div>
                     <div class="text-center mt-3">
-                        <button type="submit" class="btn btn-primary">Search</button>
+                        <button type="submit" class="btn btn-primary SearchComponent-btn-primary">Search</button>
                     </div>
                 </form>
             </div>
@@ -39,7 +39,7 @@ const Search = Vue.component("SearchComponent",{
 
                         <div v-for="service in services" :key="service.service_name" class="HomeComponent-card card">
                             <div class="container HomeComponent-card_img-content card_img-content">
-                            <img :src="service.service_image" :alt="service.serevice_name + ' Image'" class="HomeComponent-card-img-top card-img-top"/>
+                            <img :src="service.service_image" :alt="service.service_name + ' Image'" class="HomeComponent-card-img-top card-img-top"/>
                             </div>
                             <div class="HomeComponent-card-content card-content">
                             <div class="HomeComponent-card-body card-body">
@@ -159,14 +159,21 @@ const Search = Vue.component("SearchComponent",{
                 const filteredServices = this.allServices[category].filter(service => {
                     return (
                         (!this.filters.category || category === this.filters.category) &&
-                        (!this.filters.price || service.price <= this.filters.price) &&
-                        (!this.filters.rating || service.rating >= this.filters.rating)
+                        (!this.filters.price || service.service_base_price <= this.filters.price) &&
+                        (!this.filters.rating || service.avg_rating >= this.filters.rating)
                     );
                 });
         
                 // If there are matched services, add them to results
                 if (filteredServices.length > 0) {
                     this.results[category] = filteredServices;
+                    // Ensure the DOM is updated before initializing the carousel
+                    this.$nextTick(() => {
+                        // this.initializeCarousel();
+                        if (Object.keys(this.results).length > 0) {
+                            this.initializeCarousel();
+                        }
+                    });
                 }
             }
         
@@ -218,7 +225,7 @@ const Search = Vue.component("SearchComponent",{
       
           closeModal() {
             document.getElementById("myModal_ServiceDetails").style.display = 'none'
-            this.servicereq_selected = null
+            this.service_selected = null
           },
       
           async submitRequest(event) {
@@ -265,15 +272,17 @@ const Search = Vue.component("SearchComponent",{
           }
     },
     mounted() {
+        console.log("Mounted.")
+        this.fetchServiceCategories(); // Fetch categories on mount
         try {
             const storedItems = localStorage.getItem('search_items');
-            this.allServices = storedItems ? JSON.parse(storedItems) : null; // Ensure it doesn't break if null or invalid
-    
-            if (this.allServices) {
-                this.$nextTick(() => {
-                    this.initializeCarousel();
-                });
-            }
+            this.allServices = storedItems ? JSON.parse(storedItems) || {} : {}; // Ensure it doesn't break if null or invalid
+            console.log("All Services from LocalStorage : ",this.allServices)
+            // if (this.allServices) {
+            //     this.$nextTick(() => {
+            //         this.initializeCarousel();
+            //     });
+            // }
         } catch (error) {
             console.error("Error parsing localStorage data:", error);
             this.allServices = null; // Fallback in case of error
@@ -281,5 +290,5 @@ const Search = Vue.component("SearchComponent",{
     }
 })
 
-export default Search
+export default Srch
 

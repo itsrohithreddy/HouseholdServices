@@ -16,9 +16,9 @@ const Navbar = Vue.component('NavbarComponent', {
             <!-- <li class="nav-item"><a class="nav-link" href="#"><i class="fa-solid fa-user-tie fa-lg" style="color: #ffffff;"></i> Professional</a></li> -->
         </ul>
         <ul class="navbar-nav ms-auto">
-            <!-- <li class="nav-item"> -->
-            <!-- <router-link class="nav-link" to="/search"><i class="fa fa-fw fa-search fa-lg" style="color: #ffffff;"></i> Search</router-link> -->
-            <!-- </li> -->
+            <li class="nav-item">
+            <router-link class="nav-link" to="/srch"><i class="fa fa-fw fa-search fa-lg" style="color: #ffffff;"></i> Search</router-link>
+            </li>
             <li v-if="loggedIn === '1'" class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Menu
