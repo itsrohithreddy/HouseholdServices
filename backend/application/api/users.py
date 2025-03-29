@@ -6,6 +6,7 @@ from application.utils.validation import csrf_protect,use_decor_exp,decodeutf8,c
 import jwt
 from flask import current_app as app
 from datetime import datetime
+from application.cache_config import cache
 
 
 
@@ -49,14 +50,14 @@ class UserAPI(Resource):
                                 })
 
             response = make_response(jsonify({
-                "message": "Customers details fetched successfully.",
+                "message": "User details fetched successfully.",
                 "data":details,
                 "flag" :1,
                 "status": "success",
             }),200)
         else:
             response = make_response(jsonify({
-                "message": "No customers found",
+                "message": "No Users found",
                 "data":details,
                 "flag" :1,
                 "status": "success",
@@ -66,6 +67,7 @@ class UserAPI(Resource):
 
  
 class ServicesListAPI(Resource):
+    @cache.cached(timeout=120)
     def get(self):
         servicesList = dict()
         services = Services.query.all()

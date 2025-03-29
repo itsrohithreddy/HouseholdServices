@@ -25,7 +25,8 @@ const Home = Vue.component("HomeComponent", {
   
         if (data.status === "success" && data.flag === 1) {
           this.categorizedServices = data.data;
-          console.log(this.categorizedServices)
+          console.log("All services fetched successfully:");
+          localStorage.setItem("search_items", JSON.stringify(data.data));
   
           // Ensure the DOM is updated before initializing the carousel
           this.$nextTick(() => {

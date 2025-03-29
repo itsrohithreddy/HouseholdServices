@@ -1,6 +1,6 @@
 from flask_restful import Resource
 from flask import current_app as app
-from flask import request,make_response,jsonify,render_template,redirect ,session
+from flask import request,make_response,jsonify,render_template,redirect ,session, flash
 from application.data.database import db
 from application.data.models import Users
 from application.utils.validation import generate_csrf_token,replace_with_ascii,replace_with_chars,checkEmpty,checkDob,gen_uuid
@@ -45,6 +45,14 @@ class SignInAPI(Resource):
         username = data['email']
         password = data['password']
         user_check=Users.query.filter(Users.user_name == username).first()
+        if user_check.role == "blckd":
+            return make_response(
+            render_template(
+                'blckd.html',
+            ),
+            200,
+            {'Content-Type': 'text/html'}
+            )
         response = None
         if user_check:
             if self.bcrypt.check_password_hash(user_check.password, password):
@@ -60,8 +68,6 @@ class SignInAPI(Resource):
                     decoded_token["role"] = "cust"
                 elif user_check.role == "prof":
                     decoded_token["role"] = "prof"
-                else:
-                    decoded_token["role"] = "blckd"
                 decoded_token["loggedIn"] = "1"
                 decoded_token["exp"] = datetime.now(timezone.utc) + timedelta(hours=1)
                 new_token = jwt.encode(decoded_token, app.config['SECRET_KEY'], algorithm='HS256')
@@ -135,7 +141,16 @@ class GoogleOAuthCallbackAPI(Resource):
         picture = user_data.get('picture')
         response = None
         user_check=Users.query.filter(Users.user_name == username).first()
+        
         if user_check:
+            if user_check.role == 'blckd':
+                return make_response(
+                render_template(
+                    'blckd.html',
+                ),
+                200,
+                {'Content-Type': 'text/html'}
+                )
             response = self.update_user(user_check, username, firstname, lastname, picture)
         else:
             response = self.handle_new_google_user(username, name, picture)
@@ -219,6 +234,7 @@ class GoogleOAuthCallbackAPI(Resource):
         # Call the Celery task
         job = tasks.send_registration_email.delay(email, subject, body)
         # print("Job status : ",job.status)
+        flash("Please check your mail for a link. Click the link and complete your registration. Only then can you signin.", "success")  # Flash message
         return response
     
 
@@ -294,6 +310,7 @@ class SignUpDetailsOAuthAPI(Resource):
                             """
                             # Call the Celery task
                             job = tasks.send_registration_email.delay(email, subject, body)
+                            flash("Registration completed. Please SignIn back to use the services.", "success")  # Flash message
                             response = make_response(jsonify({'message': 'Registration successful','flag':1,'status': 'success'}),200)
                         except Exception as e:
                             print("Rolling Back due to Database error  :",e)
@@ -303,6 +320,7 @@ class SignUpDetailsOAuthAPI(Resource):
                                 'flag':0,
                                 'status': 'failure'
                             }), 503)
+                            flash("Registration could not be completed. Please try again.")  # Flash message
                             response.headers['Content-Type'] = 'application/json'
                             return response
 

@@ -3,22 +3,22 @@ const Navbar = Vue.component('NavbarComponent', {
     <nav class="navbar navbar-expand-lg navbar-dark bg-info">
         <a class="navbar-brand" href="#"><i class="fa-brands fa-servicestack fa-2xl" style="color: #ffffff;"></i>HS</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav-collapse" aria-controls="nav-collapse" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+            <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="nav-collapse">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#"><i class="fa fa-fw fa-home fa-lg" style="color: #ffffff;"></i> Home</a>
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
             </li>
-            <!-- Uncomment these if needed -->
+            <!-- Uncomment this if needed -->
             <!-- <li class="nav-item"><a class="nav-link" href="#"><i class="fa-solid fa-user fa-lg" style="color: #ffffff;"></i> Profile</a></li> -->
-            <!-- Uncomment these if needed -->
+            <!-- Uncomment this if needed -->
             <!-- <li class="nav-item"><a class="nav-link" href="#"><i class="fa-solid fa-user-tie fa-lg" style="color: #ffffff;"></i> Professional</a></li> -->
         </ul>
         <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
-            <router-link class="nav-link" to="/search"><i class="fa fa-fw fa-search fa-lg" style="color: #ffffff;"></i> Search</router-link>
-            </li>
+            <!-- <li class="nav-item"> -->
+            <!-- <router-link class="nav-link" to="/search"><i class="fa fa-fw fa-search fa-lg" style="color: #ffffff;"></i> Search</router-link> -->
+            <!-- </li> -->
             <li v-if="loggedIn === '1'" class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Menu
@@ -56,7 +56,8 @@ const Navbar = Vue.component('NavbarComponent', {
         loggedIn: localStorage.getItem('loggedIn') || '',
         role: localStorage.getItem('role') || '',
         user_id: localStorage.getItem('user_id') || '',
-        prof_req : localStorage.getItem('prof_req') || '0'
+        prof_req : localStorage.getItem('prof_req') || '0',
+        nav : localStorage.getItem('nav') || 'Home'
     }
   },
   created() {

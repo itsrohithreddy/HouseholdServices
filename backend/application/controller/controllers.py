@@ -3,6 +3,7 @@ from flask_restful import Resource
 from flask import render_template, redirect, request ,make_response, jsonify,session,request,get_flashed_messages
 import jwt
 import requests
+from application.data.database import db
 from application.data.models import ServiceRequests, Services, Professionals,Users
 from application.controller.sse import server_side_event
 from application.utils.validation import check_loggedIn_jwt_expiration,check_loggedIn_status,csrf_protect,check_role_prof,generate_otp,is_otp_expired,generate_csrf_token,check_loggedIn_jwt_expiration_admin,use_decor_exp
@@ -201,15 +202,15 @@ def verify_otp():
 @csrf_protect
 def srvc_cat():
     srvcs = Services.query.all()
-    srvc_cat = []
+    srvc_cats = []
     response = None
     if srvcs:
         for srvc in srvcs:
-            srvc_cat.append(srvc.service_category)
+            srvc_cats.append(srvc.service_category)
         response = make_response(jsonify({
                             'message': 'Srevice Categories data retrieved.',
                             'flag' : 1,
-                            'data' : srvc_cat,
+                            'data' : srvc_cats,
                             'status': 'success'
                         }), 200)
     return response 
@@ -405,7 +406,7 @@ def professionalRating(srvcreq_id=None):
     response = None
     data = request.get_json()
     if srvcreq:
-        data = {
+        data_req = {
         "prof_rating": data['prof_rating'],  
         "prof_review": data['prof_review'] if data['prof_review'] else "",
         "srvcreq_id": srvcreq_id
@@ -418,7 +419,7 @@ def professionalRating(srvcreq_id=None):
         }
         try:
             # Making the PUT request
-            resp = requests.put(url, json=data, headers=headers, cookies=request.cookies)
+            resp = requests.put(url, json=data_req, headers=headers, cookies=request.cookies)
             print(resp)
             if resp.status_code == 200:
                 server_side_event(msg = f"Thank you for rating the customer : `{srvcreq.srvc_usr.first_name}`.", type=f"{srvcreq.prof_id}")
@@ -568,6 +569,8 @@ def fetchCount(flag = None):
         # for professional
         elif flag == '1':
             count = len(Users.query.filter_by(role = 'prof').all())
+        elif flag == '3':
+            count = len(Users.query.filter_by(role = 'blckd').all())
         # for service categories
         else:
             count = len(Services.query.all())
@@ -624,6 +627,91 @@ def pendingProfApprovals():
 
 
 
+
+# For admin to block a user(either `prof` or `cust``)
+@app.route('/api/block_user',methods = ["PUT"])
+@check_loggedIn_jwt_expiration_admin
+@check_loggedIn_status
+@csrf_protect
+def blockUser():
+    data = request.get_json()
+    id = data.get('id')
+    response = None
+    if id:
+        user = Users.query.filter_by(user_id = id).first()
+        if user:
+            try:
+                if user.role == 'prof':
+                    professional = Professionals.query.filter_by(prof_userid = id).first()
+                    if professional:
+                        db.session.delete(professional)  # Mark for deletion
+                        db.session.commit()  # Commit changes to the database
+                        print(f"Professional with ID {professional.prof_userid} deleted successfully.")
+                    else:
+                        print(f"No professional found with ID {professional.prof_userid}.")
+            except Exception as e:
+                print("Rolling back. Issue with database Updation",e)
+                db.session.rollback()
+                response = make_response(jsonify({"message":"User could not be blocked. Database error. Please try again.",'flag':0,"status":"failure"}),503)
+                return response
+            try:
+                user.role = 'blckd'
+                db.session.commit()
+                response = make_response(jsonify({"message" : "User blocked successfully.",
+                                                "flag" : 1,
+                                                "status" : "success"}),200)
+            except Exception as e:
+                print("Rolling back. Issue with database Updation",e)
+                db.session.rollback()
+                response = make_response(jsonify({"message":"User could not be blocked. Database error. Please try again.",'flag':0,"status":"failure"}),503)
+        else:
+            response = make_response(jsonify({"message" : "User not found.",
+                                            "flag" : 0,
+                                            "status" : "failure"}),400)
+    else:
+        response = make_response(jsonify({"message" : "Bad Request.",
+                                            "flag" : 0,
+                                            "status" : "failure"}),400)
+    response.headers['Content-Type'] = 'application/json'
+    return response
+
+
+
+# For admin to block a user(either `prof` or `cust``)
+@app.route('/api/revoke_user',methods = ["PUT"])
+@check_loggedIn_jwt_expiration_admin
+@check_loggedIn_status
+@csrf_protect
+def revokeUser():
+    data = request.get_json()
+    id = data.get('id')
+    response = None
+    if id:
+        user = Users.query.filter_by(user_id = id).first()
+        if user:
+            try:
+                user.role = 'cust'
+                db.session.commit()
+                response = make_response(jsonify({"message" : "User revoked to customer successfully.",
+                                                "flag" : 1,
+                                                "status" : "success"}),200)
+            except Exception as e:
+                print("Rolling back. Issue with database Updation.",e)
+                db.session.rollback()
+                response = make_response(jsonify({"message":"User could not be revoked. Database error. Please try again.",'flag':0,"status":"failure"}),503)
+        else:
+            response = make_response(jsonify({"message" : "User not found to revoke.",
+                                            "flag" : 0,
+                                            "status" : "failure"}),400)
+    else:
+        response = make_response(jsonify({"message" : "Bad Request.",
+                                            "flag" : 0,
+                                            "status" : "failure"}),400)
+    response.headers['Content-Type'] = 'application/json'
+    return response
+
+
+
 # Pending request details which are to be verified as professional by admin
 # @app.route('/api/pending_prof_approvals/details/<string:prof_id>',methods = ["GET"])   #For admin only
 # @check_role_admin
@@ -659,6 +747,12 @@ def pendingProfApprovals():
 
 
 
+
+
+
+
+
+# Monthly report related routes
 @app.route('/api/professional_emails',methods = ["GET"])
 def getEmails():
     professionals = Professionals.query.all()
@@ -679,18 +773,22 @@ def getEmails():
 def reportDetails(prof_id = None):
     response = None
     if prof_id:
-        professional = Professionals.query.firter_by(prof_userid = prof_id).first()
+        professional = Professionals.query.filter_by(prof_userid = prof_id).first()
         details = dict()
         if professional:
             count_a = 0
             count_r = 0
+            count_p = 0
             count = 0
+            sum_rating = 0
             for srvc_req in professional.srvc_reqs:
                 if srvc_req.srvc_status == "accepted":
                     count_a += 1
                 if srvc_req.srvc_status == "rejected":
                     count_r += 1
-                if srvc_req.cust_rating != None:
+                if srvc_req.srvc_status == "pending":
+                    count_p += 1
+                if srvc_req.cust_rating != -1:
                     sum_rating += srvc_req.cust_rating
                     count += 1
             details = {"service_cat" : professional.prof_service.service_category,
@@ -698,7 +796,8 @@ def reportDetails(prof_id = None):
                        "srvcreqs_rcvd" : len(professional.srvc_reqs),
                        "srvcreqs_acpt" : count_a,
                        "srvcreqs_rjtd" : count_r,
-                       "avg_rating" : sum_rating/count}
+                       "srvcreqs_pend" : count_p,
+                       "avg_rating" : sum_rating/count if sum_rating != 0 else 0}
             response = make_response(jsonify({"message" : "Professional Monthly report details fetched successfully.",
                                               "flag" : 1,
                                               "data" : details,

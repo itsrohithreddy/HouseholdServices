@@ -1,9 +1,9 @@
 from flask_restful import Resource
-from flask import request,make_response,jsonify
+from flask import request,make_response,jsonify, flash
 from application.data.database import db
 from application.data.models import Services
 from application.utils.validation import gen_uuid,csrf_protect,decodeutf8,base64encode,check_loggedIn_jwt_expiration_admin,check_loggedIn_status
-
+from application.cache_config import cache
 
 class ServiceAPI(Resource):
     """
@@ -12,6 +12,7 @@ class ServiceAPI(Resource):
     @check_loggedIn_jwt_expiration_admin
     @check_loggedIn_status
     @csrf_protect
+    @cache.cached(timeout=120)
     def get(self):
         # /api/services
         """
@@ -28,13 +29,19 @@ class ServiceAPI(Resource):
         result = []
         for service in services:
             # Create response content
+            srvc_names = []
+            for professional in service.professionals_opted:
+                srvc_names.append(professional.prof_service_name)
             result.append({
                 'service_id': service.service_id,
                 'service_category': service.service_category,
                 'time_req': service.time_req,
                 'service_base_price': service.service_base_price,
                 'service_image': "data:image/png;base64,"+decodeutf8(service.service_image),
-                'service_dscp': service.service_dscp
+                'service_dscp': service.service_dscp,
+                'prof_count' : len(service.professionals_opted),
+                'srvc_count': len(set(srvc_names)),
+                'srvc_names': list(set(srvc_names))
             })
         response = make_response(jsonify({"message":"Services retrieval successful.","data": result,"status":"success","flag":1}),200)
         response.headers['Content-Type'] = 'application/json'
@@ -46,30 +53,28 @@ class ServiceAPI(Resource):
     @csrf_protect
     def put(self):
         """
-        Updates an existing service.(By admin only)
+        Updates an existing service category.(By admin only)
         """
         query = Services.query
         data = request.get_json()
         response = None
-        service = query.filter(Services.service_name == data["service_name"]).first()
-        if not service:
-            response = make_response(jsonify({"message":f"'{data['service_name']}' service not found.","flag" : 0,"status":"failure"}),404)
+        service_cat = query.filter(Services.service_id == data["service_id"]).first()
+        if not service_cat:
+            response = make_response(jsonify({"message":f"'{data['service_category']}' service category not found.","flag" : 0,"status":"failure"}),404)
             response.headers['Content-Type'] = 'application/json'
             return response
 
-        for column in ["service_category", "time_req", "service_base_price", "service_image", "service_dscp"]:
-            if column in data:
-                if column=="service_image":
-                    service_image_io = base64encode(data[column])
-                    setattr(service, column, service_image_io)
-                else:    
-                    setattr(service, column, data[column])
+        for column in ["service_category", "time_req", "service_base_price", "service_dscp"]:
+            if column in data:    
+                setattr(service_cat, column, data[column])
         try:
             db.session.commit()
+            flash("Service Category updated successfully.","success")
             response = make_response(jsonify({"message":"Service updated successfully","flag":1,"status":"success"}),200)
         except Exception as e:
             print("Rolling back. Issue with database Insertion",e)
             db.session.rollback()
+            flash("Service Category could not be updated. Please try again.","error")
             response = make_response(jsonify({"message":"Service Updation failed. Database error. Please try again.",'flag':0,"status":"failure"}),503)
         response.headers['Content-Type'] = 'application/json'
         return response

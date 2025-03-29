@@ -1,4 +1,3 @@
-
 from application.jobs.workers import clry
 # from celery import shared_task
 from flask_mail import Message
@@ -37,6 +36,7 @@ def send_report_to_professional(self, recipient_email, report_details):
             <p>Service requests received : <b>{report_details["srvcreqs_rcvd"]}</b></p>
             <p>Service requests accepted : <b>{report_details["srvcreqs_acpt"]}</b></p>
             <p>Service requests rejected : <b>{report_details["srvcreqs_rjtd"]}</b></p>
+            <p>Service requests pending : <b>{report_details["srvcreqs_pend"]}</b></p>
             <p>Average rating until today : <b>{report_details["avg_rating"]}</b></p>
             <br><br>
             <p><b>Thank you.</b></p>
@@ -54,8 +54,9 @@ def send_report_to_professional(self, recipient_email, report_details):
         self.retry(exc=e)  # Retry sending the email only for this recipient
 
 
-@clry.task(bind=True)
-def send_monthly_report():
+@clry.task(bind = True)
+def send_monthly_report(self):
+    print("Hi from report sending.......")
     try:
         # API call to get emails of professionals
         response = requests.get("http://127.0.0.1:5000/api/professional_emails")
@@ -81,48 +82,4 @@ def send_monthly_report():
 
     except Exception as e:
         print(f"Error in send_monthly_report task: {e}")
-
-# @clry.task(bind=True, max_retries=3, default_retry_delay=60)
-# def send_monthly_report(self):
-#     from main import mail
-#     #Here do a api call to backend to get emails of professionals and add to recipients list
-#     try:
-#         response = requests.get("http://127.0.0.1:5000/api/professional_emails")
-#         # Check if the request was successful
-#         if response.status_code == 200:
-#             data = response.json()
-
-#             recipients = data["data"] or ["gurudurohith@gmail.com"] 
-#             subject = "Monthly Report"
-#             for id,recipient in recipients:
-#                 #Do a api call to backend to get the report of a professional and include in body of mail
-#                 try:
-#                     response = requests.get(f"http://127.0.0.1:5000/api/report_details/{id}")
-#                     if response.status_code == 200:
-#                         data = response.json()
-#                         report_details = data["data"]
-#                     body = f"""<h1>Household Services</h1>
-#                             <p>Spend some time to look at the repost sent :)</p>
-#                             <p>Service Name : <b>{report_details["service_name"]}</b></p>
-#                             <p>Service requests received : <b>{report_details["srvcreqs_rcvd"]}</b></p>
-#                             <p>Service requests accepted : <b>{report_details["srvcreqs_acpt"]}</b></p>
-#                             <p>Service requests rejected : <b>{report_details["srvcreqs_rjtd"]}</b></p>
-#                             <p>Average rating until today : <b>{report_details["avg_rating"]}</b></p>
-#                             <br><br>
-#                             <p><b>Thank you.</b></p>
-#                             <p><b>Keep SMILING and keep SERVING.</b></p>"""
-#                     try:
-#                         msg = Message(subject, recipients=[recipient])
-#                         msg.html = body
-#                         mail.send(msg)
-#                         print(f"Monthly report sent to {recipient} successfully!")
-#                         return True
-#                     except Exception as e:
-#                         print(f"Failed to send email to {recipient}: {e}")
-#                         # self.retry(exc=e)
-#                 except Exception as e:
-#                     pass
-#     except Exception as e:
-#         pass
-
 

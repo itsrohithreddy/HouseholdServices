@@ -23,6 +23,12 @@ const AdminHome = Vue.component("AdminHomeComponent",{
                     <div class="text-center"><h3>- {{ total_srvc_cats }} -</h3></div>
                 </div>
             </div>
+            <div class="col-12 col-md-6">
+                <div class="AdminHomeComponent-dataholder container px-5 py-2" @click="redirect('Blocked Users')" style="background-color: #f1f1f1;border-radius: 10%;width:250px;height:200px">
+                    <div class="text-center"><h2>Total Blocked Users</h2></div>
+                    <div class="text-center"><h3>- {{ blckd_users }} -</h3></div>
+                </div>
+            </div>
         </div>
     </div>
     <div v-else>
@@ -43,6 +49,7 @@ const AdminHome = Vue.component("AdminHomeComponent",{
             total_srvc_cats : 0,
             total_professionals : 0,
             total_customers : 0,
+            blckd_users : 0,
             loggedIn : "0"
         }
     },
@@ -131,6 +138,32 @@ const AdminHome = Vue.component("AdminHomeComponent",{
               console.error("Error fetching services:", error.message);
             }
           },
+          async fetchBlockedUsers() {
+            try {
+              const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+              const response = await fetch("/api/fetch_count/3", {
+                method: "GET",
+                headers: {
+                  "Content-Type": "application/json",
+                  'X-CSRF-Token': csrfToken
+                },
+              });
+              if (!response.ok) {
+                const errorData = await response.json();
+                console.error("Error submitting request:", errorData.message);
+                throw new Error(`HTTP Error: ${errorData.status} - ${errorData.status}`);
+              }
+        
+              const data = await response.json();
+        
+              if (data.status === "success" && data.flag === 1) {
+                this.blckd_users = data.data;
+              }
+            }
+            catch (error) {
+              console.error("Error fetching services:", error.message);
+            }
+          },
           redirect(flag){
             this.$router.push(`/admin_details/${flag}`);
           }
@@ -148,6 +181,7 @@ const AdminHome = Vue.component("AdminHomeComponent",{
             this.fetchCustCount();
             this.fetchProfCount();
             this.fetchSrvcCatsCount();
+            this.fetchBlockedUsers();
         }
     },
 })

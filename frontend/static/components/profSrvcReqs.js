@@ -28,6 +28,9 @@ const ProfSrvcReqs = Vue.component("ProfSrvcReqsComponent",{
       <div v-else style="display: flex; flex-direction: column; align-items: center;text-align: center;">
           <p><span style="color:green">No Pending Requests </span></p>
       </div>
+
+
+      
     <div v-if="servicereq_selected" id="myModal_RequestDetails" class="ProfSrvcReqsComponent-modal modal" style="position:fixed;top:15%;left:30%;width: 50%;height : 70%;max-width:500px;">
         <div class="ProfSrvcReqsComponent-modal-content modal-content" style="width: 100%">
           <span class="ProfSrvcReqsComponent-close" @click="closeModal()">&times;</span>

@@ -45,6 +45,14 @@ class localConfig(Config):
     CELERY_RESULT_BACKEND = "redis://localhost:6379/0"
     REDIS_URL = "redis://localhost:6379/0"
 
+    # Api Cache configuration
+    CACHE_TYPE = 'redis'
+    CACHE_REDIS_HOST = 'localhost'
+    CACHE_REDIS_PORT = 6379
+    CACHE_REDIS_DB = 0
+    CACHE_REDIS_URL = 'redis://localhost:6379/0'
+    CACHE_DEFAULT_TIMEOUT = 120 # (2 mins)
+
     ADMIN_EMAIL = os.environ.get('ADMIN_EMAIL')
     ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD")
     ADMIN_NAME = os.environ.get("ADMIN_NAME")

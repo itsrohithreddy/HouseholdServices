@@ -40,6 +40,9 @@
       <!-- Notification container -->
       <div id="notification-container"></div>
     </div>
+    <footer class="bg-dark text-white text-center py-3">
+      <p class="mb-0">&copy; 2025 HOUSEHOLD SERVICES. ALL RIGHTS RESERVED. </p>
+    </footer>
     <script>
       const username = "{{ username }}";
         const loggedIn = "{{ loggedIn }}";
@@ -57,6 +60,8 @@
         localStorage.setItem("role", role);
         localStorage.setItem("user_id", user_id);
         localStorage.setItem("prof_req",prof_req);
+        localStorage.setItem("nav", "Home")
+        localStorage.setItem("search_items","");
         // console.log("Values set in localStorage:",username,loggedIn,role,user_id);
 
         // const appInstance = document.getElementById("app").__vue__;

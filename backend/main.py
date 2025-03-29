@@ -7,6 +7,7 @@ from application.config import localConfig
 from flask_mail import Mail
 from flask_bcrypt import Bcrypt
 import os
+from application.cache_config import cache
 # from apscheduler.schedulers.background import BackgroundScheduler
 
 
@@ -17,7 +18,6 @@ api = None
 clry = None
 mail = None
 bcrypt = None
-
 
 
 
@@ -53,6 +53,7 @@ def create_app():
     clry.Task = workers.ContextTask
     clry.conf.broker_connection_retry_on_startup = True
 
+    cache.init_app(flask_app)
 
     # CORS(flask_app, resources={r"/*" : {"origins" : "http://localhost:5000", "allow_headers" : "*"}})
     return flask_app, flask_api ,mail ,clry ,bcrypt

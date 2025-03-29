@@ -826,7 +826,7 @@ transition: transform 0.3s ease-in-out;
 
 
 /* Styles for Admin Details */
-#AdminDetails-fullpage{
+#AdminDetailsComponent-fullpage{
   flex: 1; /* Allow the main content to grow and take up remaining vertical space */
 }
 
@@ -979,6 +979,29 @@ transition: transform 0.3s ease-in-out;
 }
 
 .AdminApprovalsComponent-close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+
+
+/*For HomeComponent-Modals*/
+.AdminDetailsComponent-modal {
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index:1;
+}
+
+.AdminDetailsComponent-modal-content {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+}
+
+.AdminDetailsComponent-close {
     color: #aaa;
     float: right;
     font-size: 28px;
