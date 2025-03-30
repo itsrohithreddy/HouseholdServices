@@ -1,4 +1,4 @@
-from backend.app import create_app  # Import the create_app function
+from main import create_app  # Import the create_app function
 from application.data.database import db  # Import the SQLAlchemy instance
 import os
 

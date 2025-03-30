@@ -11,7 +11,7 @@ from datetime import datetime
 
 class SignUpAPI(Resource):
     def __init__(self):
-        from backend.app import bcrypt
+        from main import bcrypt
         self.bcrypt = bcrypt
     # def get(self):
     #     # return render_template("signup.html")

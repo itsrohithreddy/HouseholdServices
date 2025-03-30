@@ -28,7 +28,7 @@ google = oauth.register(
 class SignInAPI(Resource):
     #Time Being
     def __init__(self):
-        from backend.app import bcrypt
+        from main import bcrypt
         self.bcrypt = bcrypt
         
     # def get(self):

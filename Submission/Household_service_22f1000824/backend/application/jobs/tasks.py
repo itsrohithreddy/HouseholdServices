@@ -8,7 +8,7 @@ import requests
 @clry.task(bind=True, max_retries=3, default_retry_delay=60)
 def send_registration_email(self, to_email, subject, body):
     """Sends an email with retry on failure."""
-    from backend.app import mail
+    from main import mail
     try:
         msg = Message(subject, recipients=[to_email])
         msg.html = body
@@ -26,7 +26,7 @@ def send_registration_email(self, to_email, subject, body):
 
 @clry.task(bind=True, max_retries=3, default_retry_delay=60)
 def send_report_to_professional(self, recipient_email, report_details):
-    from backend.app import mail
+    from main import mail
     try:
         subject = "Monthly Report"
         body = f"""
