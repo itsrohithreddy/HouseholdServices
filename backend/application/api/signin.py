@@ -56,7 +56,7 @@ class SignInAPI(Resource):
         response = None
         if user_check:
             if self.bcrypt.check_password_hash(user_check.password, password):
-                print("Password Check Successful.")
+                # print("Password Check Successful.")
                 generate_csrf_token()
                 print("CSRF Token : ",session.get("csrf_token"))
                 decoded_token = jwt.decode(request.cookies.get('token'), app.config['SECRET_KEY'], algorithms=['HS256'])
@@ -86,6 +86,7 @@ class SignInAPI(Resource):
                     'flag' : 0,
                     'status': 'failure'
                 }), 401)
+                flash("Username/password incorrect. Try again.", "failure")  # Flash message
             response.headers['Content-Type'] = 'application/json'
             return response
         else:
@@ -94,6 +95,7 @@ class SignInAPI(Resource):
                 'flag' : 0,
                 'status': 'failure'
             }), 401)
+            flash("Username/password incorrect. Try again.", "failure")  # Flash message
             response.headers['Content-Type'] = 'application/json'
             return response
 

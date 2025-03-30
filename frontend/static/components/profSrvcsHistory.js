@@ -21,7 +21,7 @@ const ProfSrvcsHistory = Vue.component("ProfSrvcsHistoryComponent",{
                     <strong>Customer Name: </strong> {{ srvcreq.customer_name }}
                 </p>
                 <p v-if="srvcreq.prof_rating !== -1">
-                    <strong>Rating Given: </strong> {{ srvcreq.prof_rating }}
+                    <strong>Rating Given to Customer: </strong> {{ srvcreq.prof_rating }}
                 </p>
                 <p>
                     <strong>Date Requested: </strong> {{ srvcreq.date_srvcreq }}
@@ -183,6 +183,9 @@ const ProfSrvcsHistory = Vue.component("ProfSrvcsHistoryComponent",{
     },
     mounted() {
         this.fetchServiceRequests()
+        localStorage.setItem("nav","Completed/Rejected Professional Service Requests")
+        // Emit an event for Navbar
+        this.$root.$emit('login-success');
     }
 })
 

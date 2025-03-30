@@ -213,6 +213,9 @@ const ProfSrvcReqs = Vue.component("ProfSrvcReqsComponent",{
 
     mounted() {
         this.fetchServiceRequestsPend()
+        localStorage.setItem("nav","Pending Professional Service Requests")
+        // Emit an event for Navbar
+        this.$root.$emit('login-success');
     }
 })
 

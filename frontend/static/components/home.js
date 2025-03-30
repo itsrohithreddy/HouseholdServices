@@ -58,6 +58,7 @@ const Home = Vue.component("HomeComponent", {
         prevArrow: '<button class="slick-prev"><i class="bi bi-arrow-left"></i></button>',
         nextArrow: '<button class="slick-next"><i class="bi bi-arrow-right"></i></button>',
       });
+    
       
       // $(".HomeComponent-card-container").slick({
       //   slidesToShow: 4,
@@ -145,6 +146,9 @@ const Home = Vue.component("HomeComponent", {
         }
     });
     this.fetchServices();
+    localStorage.setItem("nav","Home")
+    // Emit an event for Navbar
+    this.$root.$emit('login-success');
     // this.initializeCarousel();
 
   },

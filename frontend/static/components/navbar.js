@@ -8,7 +8,7 @@ const Navbar = Vue.component('NavbarComponent', {
         <div class="collapse navbar-collapse" id="nav-collapse">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
+            <a class="nav-link active" aria-current="page" href="#">{{ nav }}</a>
             </li>
             <!-- Uncomment this if needed -->
             <!-- <li class="nav-item"><a class="nav-link" href="#"><i class="fa-solid fa-user fa-lg" style="color: #ffffff;"></i> Profile</a></li> -->
@@ -78,7 +78,8 @@ const Navbar = Vue.component('NavbarComponent', {
       this.loggedIn = localStorage.getItem('loggedIn') || '';
       this.role = localStorage.getItem('role') || '';
       this.user_id = localStorage.getItem('user_id') || '';
-      this.prof_req = localStorage.getItem('prof_req') || '0'
+      this.prof_req = localStorage.getItem('prof_req') || '0';
+      this.nav = localStorage.getItem('nav') || 'Home';
     }
   }
 });

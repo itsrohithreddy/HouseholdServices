@@ -8,7 +8,7 @@ const AdminNavbar = Vue.component('AdminNavbarComponent', {
         <div class="collapse navbar-collapse" id="nav-collapse">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#"><i class="fa fa-fw fa-home fa-lg" style="color: #ffffff;"></i> Home</a>
+            <a class="nav-link active" aria-current="page" href="#">{{ admin_nav }}</a>
             </li>
         </ul>
         <ul class="navbar-nav ms-auto">
@@ -40,7 +40,8 @@ const AdminNavbar = Vue.component('AdminNavbarComponent', {
     return {
         admin_username: localStorage.getItem('admin_username') || '',
         admin_loggedIn: localStorage.getItem('admin_loggedIn') || '',
-        admin_name: localStorage.getItem('admin_name') || ''
+        admin_name: localStorage.getItem('admin_name') || '',
+        admin_nav: localStorage.getItem('admin_nav') || 'Admin Home',
         // role: localStorage.getItem('role') || '',
         // user_id: localStorage.getItem('user_id') || ''
     }
@@ -61,6 +62,7 @@ const AdminNavbar = Vue.component('AdminNavbarComponent', {
       this.admin_username = localStorage.getItem('admin_username') || '';
       this.admin_loggedIn = localStorage.getItem('admin_loggedIn') || '0';
       this.admin_name = localStorage.getItem('admin_name') || ''
+      this.admin_nav = localStorage.getItem('admin_nav') || 'Admin Home'
     //   this.role = localStorage.getItem('role') || '';
     //   this.user_id = localStorage.getItem('user_id') || '';
     }

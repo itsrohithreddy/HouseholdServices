@@ -36,7 +36,7 @@ class UserAPI(Resource):
                 details.append({
                                 'user_id' : user.user_id,
                                 'user_username': user.user_name,
-                                'user_fullname': user.first_name + user.last_name,
+                                'user_fullname': user.first_name + " " + user.last_name,
                                 'user_firstname': user.first_name,
                                 'user_lastname': user.last_name,
                                 'user_image_url': user.user_image_url,

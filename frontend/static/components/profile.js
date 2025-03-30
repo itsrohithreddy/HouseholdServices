@@ -73,7 +73,7 @@ const Profile = Vue.component("ProfileComponent",{
                   <strong>Professional Name: </strong> {{ srvcreq.prof_name }}
               </p>
               <p v-if="srvcreq.cust_rating !== -1">
-                  <strong>Rating Given: </strong> {{ srvcreq.cust_rating }}
+                  <strong>Rating Given to Professional: </strong> {{ srvcreq.cust_rating }}
               </p>
               <p>
                   <strong>Date Requested: </strong> {{ srvcreq.date_srvcreq }}
@@ -401,6 +401,9 @@ const Profile = Vue.component("ProfileComponent",{
     this.fetchServiceRequests(),
     this.fetchServiceRequestsPend(),
     this.fetchOrderSummary()
+    localStorage.setItem("nav","User Profile")
+    // Emit an event for Navbar
+    this.$root.$emit('login-success');
   }
 })
 

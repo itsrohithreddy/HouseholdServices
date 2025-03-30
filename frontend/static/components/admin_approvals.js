@@ -225,6 +225,9 @@ const AdminApprovals = Vue.component("AdminApprovalsComponent",{
     },
     mounted() {
         this.fetchProfessionalRequestsPend()
+        localStorage.setItem("admin_nav","Pending Professional Approvals")
+        // Emit an event for Navbar
+        this.$root.$emit('admin_login-success');
     }
 
 })

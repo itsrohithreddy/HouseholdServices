@@ -146,6 +146,9 @@ const ProfRegistration = Vue.component("ProfRegistrationComponent",{
     },
     mounted(){
         this.fetchServiceCategories()
+        localStorage.setItem("nav","Professional Service Registration")
+        // Emit an event for Navbar
+        this.$root.$emit('login-success');
     }
 })
 

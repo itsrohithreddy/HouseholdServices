@@ -183,6 +183,9 @@ const AdminHome = Vue.component("AdminHomeComponent",{
             this.fetchSrvcCatsCount();
             this.fetchBlockedUsers();
         }
+        localStorage.setItem("admin_nav","Admin Home")
+        // Emit an event for Navbar
+        this.$root.$emit('admin_login-success');
     },
 })
 

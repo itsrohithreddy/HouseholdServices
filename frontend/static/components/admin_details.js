@@ -443,6 +443,9 @@ const AdminDetails = Vue.component("",{
     mounted() {
         this.setup();
         this.fetchEntity();
+        localStorage.setItem("admin_nav","Details")
+        // Emit an event for Navbar
+        this.$root.$emit('admin_login-success');
     },
 })
 

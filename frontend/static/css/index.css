@@ -156,11 +156,6 @@ h2 {
   color: black;
 }
 
-.slick-track {
-  display: flex !important;
-  align-items: center; /* Centers the card */
-}
-
 
 /* For carousals and cards */
 /* .HomeComponent-card-container {
@@ -192,37 +187,6 @@ h2 {
   transform: scale(1.0);
 }
 
-.HomeComponent-card-container::-webkit-scrollbar {
-  width: 12px;
-}
-
-.HomeComponent-card-container::-webkit-scrollbar-thumb {
-  background-color: transparent;
-} */
-
-/* .HomeComponent-like-button {
-  position: absolute;
-  top: 10%;
-  left: 15%;
-  transform: translate(-50%, -50%);
-  background-color: crimson;
-  height: 2.5vw;
-  width: 2.5vw;
-  border-radius: 50%;
-  border: none;
-} */
-
-/* .HomeComponent-play-button {
-  position: absolute;
-  top: 40%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: crimson;
-  height: 2.5vw;
-  width: 2.5vw;
-  border-radius: 50%;
-  border: none;
-} */
 
 /* .HomeComponent-card_img-content {
   position: relative;
@@ -236,19 +200,6 @@ h2 {
   justify-content: space-between;
 }
 
-.HomeComponent-card-img-top {
-  width: 90%;
-  height: 90%;
-  object-fit: cover;
-}
-
-.HomeComponent-card-body {
-  padding: 2vw;
-}
-
-.HomeComponent-card-text {
-  font-size: 1.0vw;
-} */
 
 
 /* For carousals and cards */

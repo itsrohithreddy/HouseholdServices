@@ -102,6 +102,11 @@ const AdminSrvcCatReg = Vue.component("AdminSrvcCatRegComponent",{
                 this.$router.push(`/redirect/${message}/${status}`);
             }
         },
+    },
+    mounted() {
+      localStorage.setItem("admin_nav","Service Category Registration")
+      // Emit an event for Navbar
+      this.$root.$emit('admin_login-success');
     }
 })
 
