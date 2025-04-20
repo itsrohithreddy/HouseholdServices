@@ -56,54 +56,61 @@ const Signin = Vue.component("SigninComponent", {
         };
     },
     methods: {
-        async submitSignin() {
-            // console.log("Login data:", this.formData);
-        
-            try {
-              const response = await fetch('/api/signin', {
-                method: 'POST',
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify(this.formData),
-              });
-        
-              if (response.ok) {
-                const message = "User Signed in Successfully. Redirecting to Home page in 3secs. Thank you."
-                const status = "true"
-                const data = await response.json();
-                console.log(data.data.username)
-                if (data.status === "success" && data.flag === 1) {
-                  localStorage.setItem("username",data.data.username)
-                  localStorage.setItem("loggedIn",data.data.loggedIn)
-                  localStorage.setItem("role",data.data.role)
-                  localStorage.setItem("user_id",data.data.user_id)
+      async submitSignin() {
+        // console.log("Login data:", this.formData);
+    
+        try {
+          const response = await fetch('/api/signin', {
+            method: 'POST',
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(this.formData),
+          });
+          console.log("Response : ",response)
+          if (response.ok) {
+            
+            const data = await response.json();
+            // console.log(data.data.username)
+            if (data.status === "success" && data.flag === 1) {
+              const message = "User Signed in Successfully. Redirecting to Home page in 3secs. Thank you."
+              const status = "true"
+              localStorage.setItem("username",data.data.username)
+              localStorage.setItem("loggedIn",data.data.loggedIn)
+              localStorage.setItem("role",data.data.role)
+              localStorage.setItem("user_id",data.data.user_id)
 
-                  // Emit an event for Navbar
-                  this.$root.$emit('login-success');
-                  // console.log(csrf_token)
-                  const csrfMetaTag = document.querySelector('meta[name="csrf-token"]');
-                  csrfMetaTag.setAttribute('content',data.csrf_token);
-                  // console.log(csrfMetaTag.getAttribute('content'))
-                }
-                // console.log("localStorage : ",localStorage.getItem("user_id"))
-                this.$router.push(`/redirect/${message}/${status}`);
-              }
-              else {
-                const errorData = await response.json();
-                console.error('Login failed:', errorData);
-                const message= "User Sign in Failed. Redirecting to Home page in 3secs. Please try again. Thank you."
-                const status = "false"
-                this.$router.push(`/redirect/${message}/${status}`);
-              }
+              // Emit an event for Navbar
+              this.$root.$emit('login-success');
+              // console.log(csrf_token)
+              const csrfMetaTag = document.querySelector('meta[name="csrf-token"]');
+              csrfMetaTag.setAttribute('content',data.csrf_token);
+              // console.log(csrfMetaTag.getAttribute('content'))
+              this.$router.push(`/redirect/${message}/${status}`);
             }
-            catch (error) {
-              const message= "User Sign in Failed. Redirecting to Home page in 3secs. Please try again. Thank you."
+            else{
+              console.log(data.message)
+              const message = "!!! User Blocked !!!. You cannot access the application anymore. Please contact admin."
               const status = "false"
-              console.error('Error during login:', error);
-              this.$router.push(`/redirect/${message}/${status}`)
+              this.$router.push(`/redirect/${message}/${status}`);
             }
-        },
+            // console.log("localStorage : ",localStorage.getItem("user_id"))
+          }
+          else {
+            const errorData = await response.json();
+            console.error('Login failed:', errorData);
+            const message= "User Sign in Failed. Redirecting to Home page in 3secs. Please try again. Thank you."
+            const status = "false"
+            this.$router.push(`/redirect/${message}/${status}`);
+          }
+        }
+        catch (error) {
+          const message= "User Sign in Failed. Redirecting to Home page in 3secs. Please try again. Thank you."
+          const status = "false"
+          console.error('Error during login:', error);
+          this.$router.push(`/redirect/${message}/${status}`)
+        }
+    },
 
     }
 });

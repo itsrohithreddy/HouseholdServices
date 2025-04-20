@@ -5,3 +5,4 @@ ImportantNotes.txt
 /backend/db_directory
 /frontend1
 supervisord.conf
+*.zip

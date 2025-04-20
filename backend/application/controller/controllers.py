@@ -643,6 +643,14 @@ def blockUser():
             try:
                 if user.role == 'prof':
                     professional = Professionals.query.filter_by(prof_userid = id).first()
+                    srvc_reqs = ServiceRequests.query.filter_by(prof_id = id).all()
+                    if srvc_reqs:
+                        for srvc_req in srvc_reqs:
+                            db.session.delete(srvc_req)
+                            db.session.commit()  # Commit changes to the database
+                            print("Service Requests deleted successfully.")
+                    else:
+                        print("No Service Requests found for this professional.")
                     if professional:
                         db.session.delete(professional)  # Mark for deletion
                         db.session.commit()  # Commit changes to the database

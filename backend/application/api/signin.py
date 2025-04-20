@@ -28,7 +28,7 @@ google = oauth.register(
 class SignInAPI(Resource):
     #Time Being
     def __init__(self):
-        from backend.app import bcrypt
+        from app import bcrypt
         self.bcrypt = bcrypt
         
     # def get(self):
@@ -46,13 +46,19 @@ class SignInAPI(Resource):
         password = data['password']
         user_check=Users.query.filter(Users.user_name == username).first()
         if user_check.role == "blckd":
-            return make_response(
-            render_template(
-                'blckd.html',
-            ),
-            200,
-            {'Content-Type': 'text/html'}
-            )
+            # return make_response(
+            # render_template(
+            #     'blckd.html',
+            # ),
+            # 200,
+            # {'Content-Type': 'text/html'}
+            # )
+            response = make_response(jsonify({
+                    'message': 'Blocked',
+                    'flag' : 0,
+                    'status': 'blocked'
+                }), 200)
+            return response
         response = None
         if user_check:
             if self.bcrypt.check_password_hash(user_check.password, password):
